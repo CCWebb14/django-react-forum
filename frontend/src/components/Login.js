@@ -39,8 +39,6 @@ const Login = () => {
 				setIsSubmitted(true);
 				setIsIncorrect(false);
 				const { key } = res.data;
-				console.log(res.data);
-				console.log(key);
 				localStorage.setItem('key', key);
 			})
 			.catch((err) => {
