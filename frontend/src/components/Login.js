@@ -27,27 +27,26 @@ const Login = () => {
 		//Prevent page reload
 		event.preventDefault();
 
-		var { uname, email, pass } = document.forms[0];
+		var { uname, pass } = document.forms[0];
 
 		axios
 			.post('http://127.0.0.1:8000/api/v1/dj-rest-auth/login/', {
 				username: uname.value,
-				email: email.value,
 				password: pass.value,
 			})
 			.then((res) => {
 				setIsSubmitted(true);
 				setIsIncorrect(false);
-				const { key } = res.data;
-				localStorage.setItem('key', key);
+				console.log(res);
+				const { access_token, refresh_token } = res.data;
+				console.log(access_token);
+				console.log(refresh_token);
+				localStorage.setItem('access_token', access_token);
+				localStorage.setItem('refresh_token', refresh_token);
 			})
 			.catch((err) => {
 				setIsIncorrect(true);
 			});
-
-		// setIsSubmitted(true);
-		// setErrorMessages({ name: "pass", message: errors.pass });
-		// setErrorMessages({ name: "uname", message: errors.uname });
 	};
 
 	// JSX code for login form
@@ -57,10 +56,6 @@ const Login = () => {
 				<InputContainer>
 					<label>Username </label>
 					<TextInput type='text' name='uname' required />
-				</InputContainer>
-				<InputContainer>
-					<label>Email </label>
-					<TextInput type='text' name='email' required />
 				</InputContainer>
 				<InputContainer>
 					<label>Password </label>
