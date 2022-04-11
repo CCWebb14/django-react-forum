@@ -16,13 +16,6 @@ const Home = () => {
 
   return(
     <>
-      {/* {state.posts.map((post) => (
-        <div key={post.id}>
-             <h1>{post.title}</h1>
-             <span>{post.body}</span>
-           </div>
-      ))
-      } */}
       <ChatTab header={"Posts"}>
         {state.posts.map((post) => 
           <Bubble
