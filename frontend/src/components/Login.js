@@ -38,7 +38,10 @@ const Login = () => {
 			.then((res) => {
 				setIsSubmitted(true);
 				setIsIncorrect(false);
+				const { key } = res.data;
 				console.log(res.data);
+				console.log(key);
+				localStorage.setItem('key', key);
 			})
 			.catch((err) => {
 				setIsIncorrect(true);
@@ -75,7 +78,7 @@ const Login = () => {
 	return (
 		<App>
 			<LoginForm>
-				<div className='title'>Sign In</div>
+				<Title>Sign In</Title>
 				{isSubmitted ? <div>User is successfully logged in</div> : renderForm}
 				{isIncorrect ? (
 					<Error>Username or password is incorrect. Please try again.</Error>
