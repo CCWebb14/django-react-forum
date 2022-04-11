@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from './components/Home'
+import Login from "./components/Login";
 import Header from "./components/Header";
 
 import { GlobalStyle } from './GlobalStyle';
@@ -12,7 +13,7 @@ const App = () => (
     <Header />
     <Routes>
       <Route path='/' element={<Home />} />
-      {/* <Route path='/login' element={<Login />} */}
+      <Route path='/login' element={<Login />} />
     </Routes>
     <GlobalStyle />
   </Router>
