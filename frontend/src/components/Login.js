@@ -7,6 +7,8 @@ import axios from 'axios';
 import { useHomeFetch } from '../hooks/useHomeFetch';
 import { useEffect, useState } from 'react';
 
+import { useCookies } from 'react-cookie';
+
 import {
 	App,
 	TextInput,
@@ -22,6 +24,7 @@ const Login = () => {
 	// React States
 	const [isIncorrect, setIsIncorrect] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [cookies, setCookie] = useCookies(['my-app-auth', 'my-refresh-token']);
 
 	const handleSubmit = async (event) => {
 		//Prevent page reload
@@ -41,8 +44,12 @@ const Login = () => {
 				const { access_token, refresh_token } = res.data;
 				console.log(access_token);
 				console.log(refresh_token);
-				localStorage.setItem('access_token', access_token);
-				localStorage.setItem('refresh_token', refresh_token);
+				setCookie('my-app-auth', access_token, {
+					path: '/',
+				});
+				setCookie('my-refresh-token', refresh_token, {
+					path: '/',
+				});
 			})
 			.catch((err) => {
 				setIsIncorrect(true);
