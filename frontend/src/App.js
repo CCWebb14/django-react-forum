@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Header from './components/Header';
+import CreatePost from './components/CreatePost';
 
 import Admin from './components/Admin';
 
@@ -17,6 +18,7 @@ const App = () => (
 			<Route path='/' element={<Home />} />
 			<Route path='/login' element={<Login />} />
 			<Route path='/admin' element={<Admin />} />
+			<Route path='/create-post' element={<CreatePost />} />
 		</Routes>
 		<GlobalStyle />
 	</Router>

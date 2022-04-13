@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseURL =
 	process.env.NODE_ENV === 'development'
-		? 'http://localhost:8000/api/v1'
+		? 'http://localhost:8000/api/v1/'
 		: 'http://example.com';
 
 const app = axios.create({

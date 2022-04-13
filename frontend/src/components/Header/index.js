@@ -15,6 +15,9 @@ const Header = () => (
 			<Link to='/admin'>
 				<p>Admin</p>
 			</Link>
+			<Link to='/create-post'>
+				<p>Create Post</p>
+			</Link>
 		</Content>
 	</Wrapper>
 );

@@ -1,9 +1,7 @@
 import React from 'react';
-import axios from '../api/axios.js';
+import axios from '../../api/axios.js';
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import useAuth from '../hooks/useAuth.js';
 
 import {
 	App,
@@ -14,13 +12,11 @@ import {
 	ButtonContainer,
 	Title,
 	Error,
-	SignUp,
-} from './Login.styles.js';
+} from '../Login.styles.js';
 
-const LOGIN_URL = 'dj-rest-auth/login/';
+const LOGIN_URL = '';
 
-const Login = () => {
-	const { setAuth } = useAuth();
+const CreatePost = () => {
 	// React States
 	const [isIncorrect, setIsIncorrect] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
@@ -46,30 +42,12 @@ const Login = () => {
 		//Prevent page reload
 		e.preventDefault();
 
-		// axios
-		// 	.post(LOGIN_URL, {
-		// 		username: user,
-		// 		password: pwd,
-		// 	})
-		// 	.then((resp) => {
-		// 		setIsSubmitted(true);
-		// 		const { access_token, refresh_token } = resp.data;
-		// 		const token = refresh_token;
-		// 		console.log(resp);
-		// 		console.log(access_token);
-		// 		console.log(refresh_token);
-		// 		setAuth({ user, pwd, access_token, token });
-		// 	})
-		// 	.catch((err) => {
-		// 		setIsIncorrect(true);
-		// 	});
-
 		try {
 			const resp = await axios.post(
 				LOGIN_URL,
 				{
-					username: user,
-					password: pwd,
+					title: user,
+					body: pwd,
 				},
 				{
 					headers: { 'Content-Type': 'application/json' },
@@ -77,9 +55,7 @@ const Login = () => {
 				}
 			);
 			console.log(JSON.stringify(resp?.data));
-			const access_token = resp?.data?.access_token;
-			console.log(access_token);
-			setAuth({ user, pwd, access_token });
+			setIsSubmitted(true);
 			setUser('');
 			setPwd('');
 		} catch (err) {
@@ -92,10 +68,10 @@ const Login = () => {
 		<>
 			<form onSubmit={handleSubmit}>
 				<InputContainer>
-					<label>Username</label>
+					<label>Title</label>
 					<TextInput
 						type='text'
-						id='username'
+						id='title'
 						ref={userRef}
 						onChange={(e) => setUser(e.target.value)}
 						value={user}
@@ -103,10 +79,10 @@ const Login = () => {
 					/>
 				</InputContainer>
 				<InputContainer>
-					<label>Password </label>
+					<label>Body </label>
 					<TextInput
-						type='password'
-						id='password'
+						type='text'
+						id='body'
 						onChange={(e) => setPwd(e.target.value)}
 						value={pwd}
 						required
@@ -116,30 +92,18 @@ const Login = () => {
 					<SubmitInput type='submit' />
 				</ButtonContainer>
 			</form>
-			<br />
-			<SignUp>
-				Need an Account?
-				<br />
-				<span className='line'>
-					<Link to='/'>Sign Up</Link>
-				</span>
-			</SignUp>
 		</>
 	);
 
 	return (
 		<App>
 			<LoginForm>
-				<Title>Sign In</Title>
-				{isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-				{isIncorrect ? (
-					<Error>Username or password is incorrect. Please try again.</Error>
-				) : (
-					<div></div>
-				)}
+				<Title>Create Post</Title>
+				{isSubmitted ? <div>Post successfully submitted</div> : renderForm}
+				{isIncorrect ? <Error>Error</Error> : <div></div>}
 			</LoginForm>
 		</App>
 	);
 };
 
-export default Login;
+export default CreatePost;
