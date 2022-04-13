@@ -4,7 +4,7 @@ from posts.permissions import IsAuthorOrReadOnly
 from .models import Post
 from .serializers import PostSerializer, UserSerializer
 
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 
 class PostList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
@@ -17,7 +17,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
 
 class UserList(generics.ListCreateAPIView):
-    permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 

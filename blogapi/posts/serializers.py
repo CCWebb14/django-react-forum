@@ -7,14 +7,13 @@ class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
 
-
   class Meta:
 
     fields = ('id', 'author', 'title', 'body', 'created_at',)
     model = Post
 
   def save(self, **kwargs):
-        """Include default for read_only `user` field"""
+        # Include default for read_only `user` field
         kwargs["author"] = self.fields["author"].get_default()
         return super().save(**kwargs)
 

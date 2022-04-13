@@ -57,7 +57,7 @@ INSTALLED_APPS = [
 REST_USE_JWT = True
 
 JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_REFRESH_COOKIE = 'refresh'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -65,7 +65,8 @@ SITE_ID = 1
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated', 
+        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.IsAuthenticated', 
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [ 
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
@@ -87,6 +88,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8000',
 )
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'config.urls'
 
