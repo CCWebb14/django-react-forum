@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 # from decouple import config
 # config.encoding = 'cp1251'
 
@@ -57,7 +58,8 @@ INSTALLED_APPS = [
 REST_USE_JWT = True
 
 JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'refresh'
+JWT_AUTH_REFRESH_COOKIE = 'refresh-token'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
