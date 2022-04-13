@@ -1,13 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import axios from '../api/axios.js';
+import { useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import axios from 'axios';
-
-import { useHomeFetch } from '../hooks/useHomeFetch';
-import { useEffect, useState } from 'react';
-
-import { useCookies } from 'react-cookie';
+import useAuth from '../hooks/useAuth.js';
 
 import {
 	App,
@@ -18,42 +14,77 @@ import {
 	ButtonContainer,
 	Title,
 	Error,
+	SignUp,
 } from './Login.styles.js';
 
+const LOGIN_URL = 'dj-rest-auth/login/';
+
 const Login = () => {
+	const { setAuth } = useAuth();
 	// React States
 	const [isIncorrect, setIsIncorrect] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
-	const [cookies, setCookie] = useCookies(['my-app-auth', 'my-refresh-token']);
 
-	const handleSubmit = async (event) => {
+	// const { setAuth } = useAuth();
+
+	const [user, setUser] = useState('');
+	const [pwd, setPwd] = useState('');
+	const [errMsg, setErrMsg] = useState('');
+
+	const userRef = useRef();
+	const errRef = useRef();
+
+	useEffect(() => {
+		userRef.current.focus();
+	}, []);
+
+	useEffect(() => {
+		setErrMsg('');
+	}, [user, pwd]);
+
+	const handleSubmit = async (e) => {
 		//Prevent page reload
-		event.preventDefault();
+		e.preventDefault();
 
-		var { uname, pass } = document.forms[0];
+		// axios
+		// 	.post(LOGIN_URL, {
+		// 		username: user,
+		// 		password: pwd,
+		// 	})
+		// 	.then((resp) => {
+		// 		setIsSubmitted(true);
+		// 		const { access_token, refresh_token } = resp.data;
+		// 		const token = refresh_token;
+		// 		console.log(resp);
+		// 		console.log(access_token);
+		// 		console.log(refresh_token);
+		// 		setAuth({ user, pwd, access_token, token });
+		// 	})
+		// 	.catch((err) => {
+		// 		setIsIncorrect(true);
+		// 	});
 
-		axios
-			.post('http://127.0.0.1:8000/api/v1/dj-rest-auth/login/', {
-				username: uname.value,
-				password: pass.value,
-			})
-			.then((res) => {
-				setIsSubmitted(true);
-				setIsIncorrect(false);
-				console.log(res);
-				const { access_token, refresh_token } = res.data;
-				console.log(access_token);
-				console.log(refresh_token);
-				setCookie('my-app-auth', access_token, {
-					path: '/',
-				});
-				setCookie('my-refresh-token', refresh_token, {
-					path: '/',
-				});
-			})
-			.catch((err) => {
-				setIsIncorrect(true);
-			});
+		try {
+			const resp = await axios.post(
+				LOGIN_URL,
+				{
+					username: user,
+					password: pwd,
+				},
+				{
+					headers: { 'Content-Type': 'application/json' },
+					withCredentials: true,
+				}
+			);
+			console.log(JSON.stringify(resp?.data));
+			const access_token = resp?.data?.access_token;
+			console.log(access_token);
+			setAuth({ user, pwd, access_token });
+			setUser('');
+			setPwd('');
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	// JSX code for login form
@@ -61,17 +92,37 @@ const Login = () => {
 		<>
 			<form onSubmit={handleSubmit}>
 				<InputContainer>
-					<label>Username </label>
-					<TextInput type='text' name='uname' required />
+					<label>Username</label>
+					<TextInput
+						type='text'
+						id='username'
+						ref={userRef}
+						onChange={(e) => setUser(e.target.value)}
+						value={user}
+						required
+					/>
 				</InputContainer>
 				<InputContainer>
 					<label>Password </label>
-					<TextInput type='password' name='pass' required />
+					<TextInput
+						type='password'
+						id='password'
+						onChange={(e) => setPwd(e.target.value)}
+						value={pwd}
+						required
+					/>
 				</InputContainer>
 				<ButtonContainer>
 					<SubmitInput type='submit' />
 				</ButtonContainer>
 			</form>
+			<SignUp>
+				Need an Account?
+				<br />
+				<span className='line'>
+					<Link to='/'>Sign Up</Link>
+				</span>
+			</SignUp>
 		</>
 	);
 

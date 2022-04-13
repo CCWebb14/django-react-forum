@@ -61,3 +61,7 @@ export const InputContainer = styled.div`
 export const Error = styled.div`
 	color: red;
 `;
+
+export const SignUp = styled.div`
+	color: black;
+`;

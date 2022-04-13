@@ -23,7 +23,7 @@ export const useHomeFetch = () => {
 		setLoading(true);
 		console.log(cookies['my-app-auth']);
 		axios
-			.get('http://127.0.0.1:8000/api/v1/', headerConfig)
+			.get('http://127.0.0.1:8000/api/v1/')
 			.then((res) => {
 				setState({ posts: res.data });
 			})

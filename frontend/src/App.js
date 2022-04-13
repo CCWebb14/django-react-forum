@@ -6,6 +6,8 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Header from './components/Header';
 
+import Admin from './components/Admin';
+
 import { GlobalStyle } from './GlobalStyle';
 
 const App = () => (
@@ -14,6 +16,7 @@ const App = () => (
 		<Routes>
 			<Route path='/' element={<Home />} />
 			<Route path='/login' element={<Login />} />
+			<Route path='/admin' element={<Admin />} />
 		</Routes>
 		<GlobalStyle />
 	</Router>
