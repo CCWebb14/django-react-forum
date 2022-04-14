@@ -17,13 +17,14 @@ export const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
         font-family: 'Abel', sans-serif;
+        text-decoration: none;
     }
 
-
     body {
-        background-color: #1c1c1c;
+        background-color: #1F2937;
         margin: 0;
         padding: 0;
+        text-decoration: none;
 
         h1 {
             font-size: 2rem;

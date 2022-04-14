@@ -15,9 +15,11 @@ const Home = () => {
 	if (error) return <div>Something went wrong...</div>;
 
 	return (
-		<>
-			<ChatTab header={'Posts'}>
-				{state.posts.map((post) => (
+		<ChatTab header={'Posts'}>
+			{state.posts
+				.slice(0)
+				.reverse()
+				.map((post) => (
 					<Bubble
 						key={post.id}
 						clickable
@@ -27,8 +29,7 @@ const Home = () => {
 						postID={post.id}
 					/>
 				))}
-			</ChatTab>
-		</>
+		</ChatTab>
 	);
 };
 

@@ -9,7 +9,6 @@ export const App = styled.div`
 	gap: 20px;
 	height: 100vh;
 	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-	background-color: #f8f9fd;
 `;
 
 export const TextInput = styled.input`
@@ -21,13 +20,14 @@ export const SubmitInput = styled.input`
 	margin-top: 10px;
 	cursor: pointer;
 	font-size: 15px;
-	background: #01d28e;
-	border: 1px solid #01d28e;
+	background: #3882f6;
+	border: 1px solid #3882f6;
 	color: #fff;
 	padding: 10px 20px;
 
 	:hover {
-		background: #6cf0c2;
+		color: #3882f6;
+		background: #e5e7eb;
 	}
 `;
 
@@ -37,7 +37,8 @@ export const ButtonContainer = styled.div`
 `;
 
 export const LoginForm = styled.div`
-	background-color: white;
+	background: linear-gradient(145deg, #1a232f, #242f3f);
+	color: white;
 	padding: 2rem;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
@@ -63,5 +64,7 @@ export const Error = styled.div`
 `;
 
 export const SignUp = styled.div`
-	color: black;
+	text-decoration: none;
+	padding-top: 5px;
+	color: Blue;
 `;

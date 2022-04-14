@@ -46,24 +46,6 @@ const Login = () => {
 		//Prevent page reload
 		e.preventDefault();
 
-		// axios
-		// 	.post(LOGIN_URL, {
-		// 		username: user,
-		// 		password: pwd,
-		// 	})
-		// 	.then((resp) => {
-		// 		setIsSubmitted(true);
-		// 		const { access_token, refresh_token } = resp.data;
-		// 		const token = refresh_token;
-		// 		console.log(resp);
-		// 		console.log(access_token);
-		// 		console.log(refresh_token);
-		// 		setAuth({ user, pwd, access_token, token });
-		// 	})
-		// 	.catch((err) => {
-		// 		setIsIncorrect(true);
-		// 	});
-
 		try {
 			const resp = await axios.post(
 				LOGIN_URL,
@@ -79,6 +61,8 @@ const Login = () => {
 			console.log(JSON.stringify(resp?.data));
 			const access_token = resp?.data?.access_token;
 			console.log(access_token);
+
+			setIsSubmitted(true);
 			setAuth({ user, pwd, access_token });
 			setUser('');
 			setPwd('');
@@ -117,13 +101,11 @@ const Login = () => {
 				</ButtonContainer>
 			</form>
 			<br />
-			<SignUp>
-				Need an Account?
-				<br />
-				<span className='line'>
-					<Link to='/'>Sign Up</Link>
-				</span>
-			</SignUp>
+			<div>Need an Account?</div>
+
+			<Link to='/'>
+				<SignUp>Sign Up</SignUp>
+			</Link>
 		</>
 	);
 
