@@ -17,7 +17,7 @@ import {
 	SignUp,
 } from './Login.styles.js';
 
-const LOGIN_URL = 'dj-rest-auth/login/';
+const LOGIN_URL = 'token/';
 
 const Login = () => {
 	const { setAuth } = useAuth();
