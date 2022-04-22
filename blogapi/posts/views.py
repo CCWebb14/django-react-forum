@@ -13,20 +13,19 @@ class MyObtainTokenPair(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
-        # you need to instantiate the serializer with the request data
+        # instantiate the serializer with the request data
         serializer = self.get_serializer(data=request.data)
-        # you must call .is_valid() before accessing validated_data
+        # call .is_valid() before accessing validated_data
         serializer.is_valid(raise_exception=True)  
 
-        access = serializer.validated_data.get("access", None)
-        refresh = serializer.validated_data.get("refresh", None)
-        email = serializer.validated_data.get("email", None)
+        access = serializer.validated_data.get('access', None)
+        refresh = serializer.validated_data.get('refresh', None)
+        email = serializer.validated_data.get('email', None)
 
         if access is not None:
-            response = Response({"access": access, "email": email}, status=200)
+            response = Response({'access_token': access}, status=200)
             response.set_cookie('access-token', access, httponly=True)
             response.set_cookie('refresh-token', refresh, httponly=True)
-            response.set_cookie('email', email, httponly=True)
             return response
 
         return Response({"Error": "Something went wrong"}, status_code=400)
