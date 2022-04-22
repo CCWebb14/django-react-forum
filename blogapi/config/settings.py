@@ -60,6 +60,10 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'refresh-token'
 
+REST_AUTH_SERIALIZERS = {
+    'JWT_TOKEN_CLAIMS_SERIALIZER': 'posts.serializers.MyTokenObtainPairSerializer',
+}
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

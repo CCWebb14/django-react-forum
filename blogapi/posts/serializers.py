@@ -1,7 +1,18 @@
-
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Post
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+  def validate(self, attrs):
+    data = super().validate(attrs)
+    refresh = self.get_token(self.user)
+    # data["refresh"] = str(refresh)   
+    data["access"] = str(refresh.access_token)
+    data["email"] = self.user.email
+
+    return data
 
 class PostSerializer(serializers.ModelSerializer):
 
