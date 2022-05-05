@@ -24,7 +24,7 @@ class MyObtainTokenPair(TokenObtainPairView):
 
         if access is not None:
             response = Response({'access_token': access}, status=200)
-            response.set_cookie('access-token', access, httponly=True)
+            # response.set_cookie('access-token', access, httponly=True)
             response.set_cookie('refresh-token', refresh, httponly=True)
             return response
 
