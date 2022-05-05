@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from '../api/axios.js';
 import { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from '../hooks/useAuth.js';
 
@@ -25,10 +25,15 @@ const Login = () => {
 	const [isIncorrect, setIsIncorrect] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
+
 	// const { setAuth } = useAuth();
 
 	const [user, setUser] = useState('');
 	const [pwd, setPwd] = useState('');
+
 	const [errMsg, setErrMsg] = useState('');
 
 	const userRef = useRef();
@@ -66,6 +71,7 @@ const Login = () => {
 			setAuth({ user, pwd, access_token });
 			setUser('');
 			setPwd('');
+			navigate(from, { replace: true });
 		} catch (err) {
 			console.log(err);
 		}

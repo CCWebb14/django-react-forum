@@ -1,18 +1,18 @@
 import axios from 'axios';
 
-const baseURL =
+const BASE_URL =
 	process.env.NODE_ENV === 'development'
 		? 'http://localhost:8000/api/v1/'
 		: 'http://example.com';
 
-const app = axios.create({
-	baseURL,
+export default axios.create({
+	baseURL: BASE_URL,
+	// headers: { 'Content-Type': 'application/json' },
 	withCredentials: true,
 });
 
-app.interceptors.response.use(
-	(response) => response,
-	(error) => Promise.reject(error.response.data.err)
-);
-
-export default app;
+export const axiosPrivate = axios.create({
+	baseURL: BASE_URL,
+	headers: { 'Content-Type': 'application/json' },
+	withCredentials: true,
+});
