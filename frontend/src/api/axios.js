@@ -5,10 +5,10 @@ const BASE_URL =
 		? 'http://localhost:8000/api/v1/'
 		: 'http://example.com';
 
-export default axios.create({
+const app = axios.create({
 	baseURL: BASE_URL,
 	headers: { 'Content-Type': 'application/json' },
-	withCredentials: true,
+	// withCredentials: true,
 });
 
 export const axiosPrivate = axios.create({
@@ -16,3 +16,5 @@ export const axiosPrivate = axios.create({
 	headers: { 'Content-Type': 'application/json' },
 	withCredentials: true,
 });
+
+export default app;

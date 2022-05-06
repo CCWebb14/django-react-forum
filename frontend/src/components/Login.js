@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../api/axios.js';
+import { axiosPrivate } from '../api/axios.js';
 import { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -29,8 +29,6 @@ const Login = () => {
 	const location = useLocation();
 	const from = location.state?.from?.pathname || '/';
 
-	// const { setAuth } = useAuth();
-
 	const [user, setUser] = useState('');
 	const [pwd, setPwd] = useState('');
 
@@ -52,7 +50,7 @@ const Login = () => {
 		e.preventDefault();
 
 		try {
-			const resp = await axios.post(LOGIN_URL, {
+			const resp = await axiosPrivate.post(LOGIN_URL, {
 				username: user,
 				password: pwd,
 			});

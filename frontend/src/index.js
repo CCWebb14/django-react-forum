@@ -4,13 +4,6 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthProvider';
 
-// ReactDOM.render(
-// 	<React.StrictMode>
-// 		<App />
-// 	</React.StrictMode>,
-// 	document.getElementById('root')
-// );
-
 const rootElement = document.getElementById('root');
 ReactDOM.render(
 	<React.StrictMode>
