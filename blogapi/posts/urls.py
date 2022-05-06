@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserList, UserDetail, PostList, PostDetail, MyObtainTokenPair
+from .views import UserList, UserDetail, PostList, PostDetail, MyObtainTokenPair, MyTokenRefresh
 
 urlpatterns = [
     path('users/', UserList.as_view()), 
@@ -7,4 +7,5 @@ urlpatterns = [
     path('', PostList.as_view()),
     path('<int:pk>/', PostDetail.as_view()),
     path('token/', MyObtainTokenPair.as_view()),
+    path('refresh/', MyTokenRefresh.as_view()),
 ]

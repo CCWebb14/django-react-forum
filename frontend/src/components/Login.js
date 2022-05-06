@@ -52,17 +52,10 @@ const Login = () => {
 		e.preventDefault();
 
 		try {
-			const resp = await axios.post(
-				LOGIN_URL,
-				{
-					username: user,
-					password: pwd,
-				},
-				{
-					headers: { 'Content-Type': 'application/json' },
-					withCredentials: true,
-				}
-			);
+			const resp = await axios.post(LOGIN_URL, {
+				username: user,
+				password: pwd,
+			});
 			console.log(JSON.stringify(resp?.data));
 			const access_token = resp?.data?.access_token;
 			console.log(access_token);

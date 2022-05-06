@@ -9,14 +9,14 @@ const Header = () => (
 			<Link to='/'>
 				<p>Home</p>
 			</Link>
-			<Link to='/login'>
-				<p>Login</p>
-			</Link>
 			<Link to='/admin'>
 				<p>Admin</p>
 			</Link>
 			<Link to='/create-post'>
 				<p>Create Post</p>
+			</Link>
+			<Link to='/login'>
+				<p>Login</p>
 			</Link>
 		</Content>
 	</Wrapper>

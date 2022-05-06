@@ -2,8 +2,9 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics
 from posts.permissions import IsAuthorOrReadOnly
 from .models import Post
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from .serializers import PostSerializer, UserSerializer, MyTokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
 
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
@@ -25,7 +26,25 @@ class MyObtainTokenPair(TokenObtainPairView):
         if access is not None:
             response = Response({'access_token': access}, status=200)
             # response.set_cookie('access-token', access, httponly=True)
-            response.set_cookie('refresh-token', refresh, httponly=True)
+            response.set_cookie('refresh', refresh, httponly=True)
+            return response
+
+        return Response({"Error": "Something went wrong"}, status_code=400)
+
+class MyTokenRefresh(TokenRefreshView):
+    permission_classes = (AllowAny,)
+    serializer_class = TokenRefreshSerializer
+
+    def post(self, request, *args, **kwargs):
+        # instantiate the serializer with the request data
+        serializer = self.get_serializer(data=request.COOKIES)
+        # call .is_valid() before accessing validated_data
+        serializer.is_valid(raise_exception=True)  
+
+        access = serializer.validated_data.get('access', None)
+
+        if access is not None:
+            response = Response({'access_token': access}, status=200)
             return response
 
         return Response({"Error": "Something went wrong"}, status_code=400)

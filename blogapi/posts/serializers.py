@@ -14,6 +14,15 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     return data
 
+# class MyTokenRefreshViewSerializer(TokenRefreshSerializer):
+#   def validate(self, attrs):
+#     data = super().validate(attrs)
+#     refresh = self.get_token(self.user)
+#     data["refresh"] = str(refresh)   
+#     data["email"] = self.user.email
+
+#     return data
+
 class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())

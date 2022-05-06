@@ -15,9 +15,9 @@ const App = () => (
 		<Header />
 		<Routes>
 			<Route path='/' element={<Home />} />
-			<Route path='/login' element={<Login />} />
 			<Route path='/admin' element={<Admin />} />
 			<Route path='/create-post' element={<CreatePost />} />
+			<Route path='/login' element={<Login />} />
 		</Routes>
 		<GlobalStyle />
 	</Router>

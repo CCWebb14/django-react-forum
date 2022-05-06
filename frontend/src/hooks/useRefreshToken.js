@@ -5,16 +5,11 @@ const useRefreshToken = () => {
 	const { setAuth } = useAuth();
 
 	const refresh = async () => {
-		const resp = await axios.post('/dj-rest-auth/token/refresh/', {
-			headers: { 'Content-Type': 'application/json' },
-			withCredentials: true,
-		});
+		const resp = await axios.post('/refresh/');
 		setAuth((prev) => {
-			// console.log(resp);
-			// console.log(prev);
-			return { ...prev, access_token: resp.data.access };
+			return { ...prev, access: resp.data.access_token };
 		});
-		return resp.data.access;
+		return resp.data.access_token;
 	};
 	return refresh;
 };
