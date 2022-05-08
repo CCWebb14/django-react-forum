@@ -6,6 +6,7 @@ from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from .serializers import PostSerializer, UserSerializer, MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
+from .pagination import StandardResultsSetPagination
 
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 
@@ -54,6 +55,7 @@ class PostList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    pagination_class = StandardResultsSetPagination
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)

@@ -7,7 +7,7 @@ import { Wrapper, Text } from './Bubble.styles';
 const Bubble = ({ title, body, author, postID, clickable }) => (
 	<>
 		{clickable ? (
-			<Link to={`/${postID}`} style={{ textDecoration: 'none' }}>
+			<Link to={`/post/${postID}`} style={{ textDecoration: 'none' }}>
 				<Wrapper>
 					<Text>
 						<h1>{title}</h1>

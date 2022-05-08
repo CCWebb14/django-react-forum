@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../../api/axios.js';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate.js';
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +20,7 @@ const CreatePost = () => {
 	// React States
 	const [isIncorrect, setIsIncorrect] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const axiosPrivate = useAxiosPrivate();
 
 	// const { setAuth } = useAuth();
 
@@ -43,17 +44,10 @@ const CreatePost = () => {
 		e.preventDefault();
 
 		try {
-			const resp = await axios.post(
-				LOGIN_URL,
-				{
-					title: user,
-					body: pwd,
-				},
-				{
-					headers: { 'Content-Type': 'application/json' },
-					withCredentials: true,
-				}
-			);
+			const resp = await axiosPrivate.post(LOGIN_URL, {
+				title: user,
+				body: pwd,
+			});
 			console.log(JSON.stringify(resp?.data));
 			setIsSubmitted(true);
 			setUser('');
