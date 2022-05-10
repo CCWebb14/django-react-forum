@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics
+from rest_framework import generics, filters
 from posts.permissions import IsAuthorOrReadOnly
 from .models import Post
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
@@ -56,6 +56,8 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     pagination_class = StandardResultsSetPagination
+    filter_backends = [filters.OrderingFilter]
+    ordering = ['-created_at']
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
