@@ -23,19 +23,6 @@ const Home = () => {
 	return (
 		<>
 			<ChatTab header={'Posts'}>
-				{/* {state.posts
-					.slice(0)
-					.reverse()
-					.map((post) => (
-						<Bubble
-							key={post.id}
-							clickable
-							title={post.title}
-							author={post.author}
-							body={post.body}
-							postID={post.id}
-						/>
-					))} */}
 				{state.results.map((post) => (
 					<Bubble
 						key={post.id}

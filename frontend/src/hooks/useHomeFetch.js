@@ -1,6 +1,5 @@
 import axios from '../api/axios';
 import { useEffect, useState } from 'react';
-import { AuthProvider } from '../context/AuthProvider';
 
 const initialState = {
 	page: 0,

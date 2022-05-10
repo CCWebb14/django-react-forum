@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Wrapper, Text } from './Bubble.styles';
 
-// Styles
+// styles
+import { Wrapper, Text } from './Bubble.styles';
 
 const Bubble = ({ title, body, author, postID, clickable }) => (
 	<>
