@@ -1,5 +1,6 @@
 
 from asyncore import read
+from email.policy import default
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Post, Comment
@@ -42,7 +43,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-  comments = CommentSerializer(allow_null=True, many=True)
+  comments = CommentSerializer(required=False, read_only=True, allow_null=True, many=True)
 
   class Meta:
 
