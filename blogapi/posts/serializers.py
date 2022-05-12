@@ -44,16 +44,20 @@ class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
   comments = CommentSerializer(required=False, read_only=True, allow_null=True, many=True)
+  comment_amt = serializers.SerializerMethodField()
 
   class Meta:
 
-    fields = ('id', 'author', 'title', 'body', 'created_at', 'comments')
+    fields = ('id', 'author', 'title', 'body', 'created_at', 'comment_amt', 'comments')
     model = Post
 
   def save(self, **kwargs):
         # Include default for read_only `user` field
         kwargs["author"] = self.fields["author"].get_default()
         return super().save(**kwargs)
+
+  def get_comment_amt(self, obj):
+    return obj.comments.all().count()
 
 
 class UserSerializer(serializers.ModelSerializer):
