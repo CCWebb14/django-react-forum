@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.forms import SlugField
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, filters
 from posts.permissions import IsAuthorOrReadOnly
 from .models import Post, Comment
@@ -63,6 +65,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
 
 class CommentList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
