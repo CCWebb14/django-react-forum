@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics, filters
 from posts.permissions import IsAuthorOrReadOnly
-from .models import Post
+from .models import Post, Comment
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from .serializers import PostSerializer, UserSerializer, MyTokenObtainPairSerializer
+from .serializers import CommentSerializer, PostSerializer, UserSerializer, MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
 from .pagination import StandardResultsSetPagination
@@ -63,6 +63,11 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class CommentList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthorOrReadOnly,)
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
 class UserList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)

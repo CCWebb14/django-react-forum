@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Post
+from .models import Post, Comment
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -23,6 +23,20 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 #     return data
 
+class CommentSerializer(serializers.ModelSerializer):
+
+  author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+
+  class Meta:
+
+    fields = ('id', 'author', 'body', 'created_at',)
+    model = Comment
+
+  def save(self, **kwargs):
+        # Include default for read_only `user` field
+        kwargs["author"] = self.fields["author"].get_default()
+        return super().save(**kwargs)
+
 class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
@@ -36,6 +50,7 @@ class PostSerializer(serializers.ModelSerializer):
         # Include default for read_only `user` field
         kwargs["author"] = self.fields["author"].get_default()
         return super().save(**kwargs)
+
 
 class UserSerializer(serializers.ModelSerializer):
 
