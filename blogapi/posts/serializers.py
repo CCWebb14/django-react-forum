@@ -29,7 +29,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
   class Meta:
 
-    fields = ('id', 'author', 'body', 'created_at',)
+    fields = ('id', 'post', 'author', 'body', 'created_at',)
     model = Comment
 
   def save(self, **kwargs):
@@ -40,10 +40,11 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+  # comments = CommentSerializer()
 
   class Meta:
 
-    fields = ('id', 'author', 'title', 'body', 'created_at',)
+    fields = ('id', 'author', 'title', 'body', 'created_at', 'comments')
     model = Post
 
   def save(self, **kwargs):
