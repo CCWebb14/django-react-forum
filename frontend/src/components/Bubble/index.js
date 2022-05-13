@@ -18,7 +18,14 @@ const Bubble = ({ title, body, author, postID, comment_amt, clickable }) => (
 				</Wrapper>
 			</Link>
 		) : (
-			<span>title</span>
+			<Wrapper>
+				<Text>
+					<h1>{title}</h1>
+					<h2>Author: {author}</h2>
+					<p>{body}</p>
+					<p>{comment_amt} comments</p>
+				</Text>
+			</Wrapper>
 		)}
 	</>
 );
