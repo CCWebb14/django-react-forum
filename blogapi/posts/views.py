@@ -56,6 +56,7 @@ class MyTokenRefresh(TokenRefreshView):
 class PostList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
+    # queryset = Post.objects.filter(comments__parent_id__isnull=True)
     serializer_class = PostSerializer
     pagination_class = StandardResultsSetPagination
     filter_backends = [filters.OrderingFilter]
@@ -69,7 +70,8 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class CommentList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
-    queryset = Comment.objects.all()
+    # queryset = Comment.objects.all()
+    queryset = Comment.objects.filter(parent_id__isnull=True)
     serializer_class = CommentSerializer
 
 class UserList(generics.ListCreateAPIView):
