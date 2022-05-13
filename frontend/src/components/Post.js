@@ -19,7 +19,27 @@ const Post = () => {
 
 	if (error) return <div>Failed to retrieve posts...</div>;
 
-	const renderForm = <>Works</>;
+	const renderComments = (comments, depth) =>
+		comments?.map((comment) => {
+			console.log('Comment', comment);
+			console.log(depth);
+
+			const recComments = renderComments(comment.replies, depth + 1);
+
+			return (
+				<>
+					<CommentBubble
+						key={comment.id}
+						author={comment.author}
+						body={comment.body}
+						id={comment.id}
+						replies={comment.replies}
+						depth={depth}
+					/>
+					{recComments}
+				</>
+			);
+		});
 
 	return (
 		<>
@@ -32,27 +52,11 @@ const Post = () => {
 					postID={state.id}
 					comment_amt={state.comment_amt}
 				/>
-				{/* {state.comments.length ? renderForm : <div>Hello</div>} */}
-				{/* {state.comments.map((comment) => {
-					return (
-						<CommentBubble
-							key={comment.id}
-							author={comment.author}
-							body={comment.body}
-							postID={comment.id}
-							replies={comment.replies}
-						/>
-					);
-				})} */}
-				{/* {comments.map((comment) => (
-					<CommentBubble
-						key={comment.id}
-						author={comment.author}
-						body={comment.body}
-						postID={comment.id}
-						replies={comment.replies}
-					/>
-				))} */}
+				{state.comments?.length ? (
+					renderComments(state.comments, 0)
+				) : (
+					<div>No Comments</div>
+				)}
 			</ChatTab>
 		</>
 	);

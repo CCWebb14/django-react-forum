@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 	color: white;
 	padding: 20px 20px;
 	margin: 25px 0px;
+	margin-left: ${(props) => props.inputDepth};
 	text-decoration: none;
 `;
 
