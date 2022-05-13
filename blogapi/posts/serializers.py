@@ -17,15 +17,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     return data
 
-# class MyTokenRefreshViewSerializer(TokenRefreshSerializer):
-#   def validate(self, attrs):
-#     data = super().validate(attrs)
-#     refresh = self.get_token(self.user)
-#     data["refresh"] = str(refresh)   
-#     data["email"] = self.user.email
-
-#     return data
-
 class FilteredListSerializer(serializers.ListSerializer):
 
     def to_representation(self, data):
@@ -44,7 +35,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
   class Meta:
     # Custom filtered list to only show parent_id=null comments
-    # Otherwise will display duplicated nested comments
+    # Otherwise will display duplicate nested comments
     list_serializer_class = FilteredListSerializer
     fields = ('id', 'parent_id', 'post', 'author', 'body', 'created_at', 'replies')
     model = Comment
