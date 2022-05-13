@@ -31,6 +31,7 @@ const Home = () => {
 						author={post.author}
 						body={post.body}
 						postID={post.id}
+						comment_amt={post.comment_amt}
 					/>
 				))}
 			</ChatTab>
