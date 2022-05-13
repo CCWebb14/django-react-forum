@@ -35,7 +35,7 @@ export const usePostFetch = (postId) => {
 	// Mount effect, initial render
 	useEffect(() => {
 		console.log('Grabbing from API');
-		setState(initialState);
+		// setState(initialState);
 		fetchPost(postId);
 	}, []);
 

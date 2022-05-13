@@ -1,17 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
-// import reportWebVitals from './reportWebVitals';
+import { createRoot } from 'react-dom/client';
 import { AuthProvider } from './context/AuthProvider';
 
 const rootElement = document.getElementById('root');
-ReactDOM.render(
-	<React.StrictMode>
-		<AuthProvider>
-			<App />
-		</AuthProvider>
-	</React.StrictMode>,
-	rootElement
+const root = createRoot(rootElement);
+root.render(
+	// <React.StrictMode>
+	// 	<AuthProvider>
+	// 		<App />
+	// 	</AuthProvider>
+	// </React.StrictMode>
+	<AuthProvider>
+		<App />
+	</AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
