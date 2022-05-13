@@ -5,7 +5,7 @@ from rest_framework import generics, filters
 from posts.permissions import IsAuthorOrReadOnly
 from .models import Post, Comment
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from .serializers import CommentSerializer, PostSerializer, UserSerializer, MyTokenObtainPairSerializer
+from .serializers import CommentSerializer, PostSerializer, UserSerializer, MyTokenObtainPairSerializer, PostListSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
 from .pagination import StandardResultsSetPagination
@@ -56,8 +56,7 @@ class MyTokenRefresh(TokenRefreshView):
 class PostList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
-    # queryset = Post.objects.filter(comments__parent_id__isnull=True)
-    serializer_class = PostSerializer
+    serializer_class = PostListSerializer
     pagination_class = StandardResultsSetPagination
     filter_backends = [filters.OrderingFilter]
     ordering = ['-created_at']
@@ -67,11 +66,9 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-
 class CommentList(generics.ListCreateAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
-    # queryset = Comment.objects.all()
-    queryset = Comment.objects.filter(parent_id__isnull=True)
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
 class UserList(generics.ListCreateAPIView):
