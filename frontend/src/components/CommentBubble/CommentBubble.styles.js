@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
 	border-radius: 25px;
 	border: 2px solid none;
 	box-shadow: 9.91px 9.91px 15px #1c2532, -9.91px -9.91px 15px #222d3c;
+	/* box-shadow: 9.91px 9.91px 15px #3882f6, -9.91px -9.91px 15px #3882f6; */
 	background: linear-gradient(145deg, #1a232f, #242f3f);
 	color: white;
 	padding: 20px 20px;

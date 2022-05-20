@@ -11,11 +11,13 @@ export const usePostFetch = (postId) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 
+	const [postID] = useState(postId);
+
 	const fetchPost = async () => {
 		setError(false);
 		setLoading(true);
 		const post = await axios
-			.get(`/${postId}`)
+			.get(`/${postID}`)
 			.then((res) => {
 				return res.data;
 			})
@@ -35,8 +37,8 @@ export const usePostFetch = (postId) => {
 	// Mount effect, initial render
 	useEffect(() => {
 		console.log('Grabbing from API');
-		// setState(initialState);
-		fetchPost(postId);
+		setState(initialState);
+		fetchPost();
 	}, []);
 
 	return { state, loading, error };
