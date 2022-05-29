@@ -59,6 +59,8 @@ const Post = () => {
 		>
 			<TextField
 				sx={{ backgroundColor: '#ffffff' }}
+				// onChange={(e) => console.log(e.target.value)}
+				onChange={(e) => setBody(e.target.value)}
 				id='outlined-multiline-static'
 				label='Multiline'
 				fullWidth
@@ -67,7 +69,12 @@ const Post = () => {
 				defaultValue='Default Value'
 			/>
 			<p></p>
-			<MUIButton variant='contained' endIcon={<SendIcon />}>
+			<MUIButton
+				variant='contained'
+				onClick={() => setIsCommenting(true)}
+				// onClick={() => console.log('hello')}
+				endIcon={<SendIcon />}
+			>
 				Send
 			</MUIButton>
 		</Box>
@@ -92,7 +99,7 @@ const Post = () => {
 						depth={depth}
 						clickable
 						callback={() => {
-							setIsCommenting(true);
+							// setIsCommenting(true);
 							setParentID(comment.id);
 							setDrawerState({ bottom: true });
 						}}

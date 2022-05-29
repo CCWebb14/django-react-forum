@@ -28,7 +28,7 @@ const Home = () => {
 						key={post.id}
 						clickable
 						title={post.title}
-						author={post.author}
+						author={post.username}
 						body={post.body}
 						postID={post.id}
 						comment_amt={post.comment_amt}

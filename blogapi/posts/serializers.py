@@ -1,5 +1,4 @@
 
-from asyncore import read
 from email.policy import default
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
@@ -37,7 +36,7 @@ class CommentSerializer(serializers.ModelSerializer):
     # Custom filtered list to only show parent_id=null comments
     # Otherwise will display duplicate nested comments
     list_serializer_class = FilteredListSerializer
-    fields = ('id', 'parent_id', 'post', 'author', 'body', 'created_at', 'replies')
+    fields = ('id', 'parent', 'post', 'author', 'body', 'created_at', 'replies')
     model = Comment
     
   def save(self, **kwargs):
@@ -48,11 +47,12 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+  username = serializers.SerializerMethodField()
   comments = CommentSerializer(required=False, read_only=True, allow_null=True, many=True)
   comment_amt = serializers.SerializerMethodField()
 
   class Meta:
-    fields = ('id', 'author', 'title', 'body', 'created_at', 'comment_amt', 'comments')
+    fields = ('id', 'author', 'username', 'title', 'body', 'created_at', 'comment_amt', 'comments')
     model = Post
 
   def save(self, **kwargs):
@@ -62,14 +62,18 @@ class PostSerializer(serializers.ModelSerializer):
 
   def get_comment_amt(self, obj):
     return obj.comments.all().count()
+
+  def get_username(self, obj):
+    return obj.author.username
 
 class PostListSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+  username = serializers.SerializerMethodField()
   comment_amt = serializers.SerializerMethodField()
 
   class Meta:
-    fields = ('id', 'author', 'title', 'body', 'created_at', 'comment_amt')
+    fields = ('id', 'author', 'username', 'title', 'body', 'created_at', 'comment_amt')
     model = Post
 
   def save(self, **kwargs):
@@ -79,6 +83,9 @@ class PostListSerializer(serializers.ModelSerializer):
 
   def get_comment_amt(self, obj):
     return obj.comments.all().count()
+
+  def get_username(self, obj):
+    return obj.author.username
 
 
 

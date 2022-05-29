@@ -18,39 +18,42 @@ export const useComment = (post) => {
 	// AxiosPrivate
 	const axiosPrivate = useAxiosPrivate();
 
-	const postComment = async () => {
-		setError(false);
-		setLoading(true);
-		const posts = await axiosPrivate
-			.post(`comments/`, {
-				parent_id: parentID,
-				post: postID,
-				body: body,
-			})
-			.then((res) => {
-				setParentID(null);
-				return res.data;
-			})
-			.catch((err) => {
-				console.log(err);
-				setError(true);
-			});
-
-		setLoading(false);
-	};
-
+	// Initial Effect
 	useEffect(() => {
 		console.log('useComment mounted');
 	}, []);
 
-	// Mount effect, initial render
 	useEffect(() => {
+		console.log('hello');
+		console.log('parentId', parentID);
 		if (!isCommenting) return;
+
+		const postComment = async () => {
+			setLoading(true);
+			await axiosPrivate
+				.post(`comments/`, {
+					parent: parentID,
+					post: postID,
+					body: body,
+				})
+				.then((res) => {
+					setError(false);
+					console.log(res);
+					setParentID(null);
+					return res.data;
+				})
+				.catch((err) => {
+					console.log(err);
+					setError(true);
+				});
+
+			setLoading(false);
+		};
 
 		console.log('useComment triggered');
 		postComment();
 		setIsCommenting(false);
-	}, [setBody]);
+	}, [setIsCommenting, axiosPrivate, body, isCommenting, parentID, postID]);
 
 	return {
 		loading,
