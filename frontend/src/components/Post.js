@@ -92,7 +92,7 @@ const Post = () => {
 				<>
 					<CommentBubble
 						key={comment.id}
-						author={comment.author}
+						author={comment.username}
 						body={comment.body}
 						id={comment.id}
 						replies={comment.replies}
@@ -115,7 +115,7 @@ const Post = () => {
 				<Bubble
 					key={state.id}
 					title={state.title}
-					author={state.author}
+					author={state.username}
 					body={state.body}
 					postID={state.id}
 					comment_amt={state.comment_amt}

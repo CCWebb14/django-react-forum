@@ -30,19 +30,23 @@ class RecursiveField(serializers.Serializer):
 class CommentSerializer(serializers.ModelSerializer):
 
   author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+  username = serializers.SerializerMethodField()
   replies = RecursiveField(required=False, read_only=True, allow_null=True, many=True)
 
   class Meta:
     # Custom filtered list to only show parent_id=null comments
     # Otherwise will display duplicate nested comments
     list_serializer_class = FilteredListSerializer
-    fields = ('id', 'parent', 'post', 'author', 'body', 'created_at', 'replies')
+    fields = ('id', 'parent', 'post', 'author', 'username', 'body', 'created_at', 'replies')
     model = Comment
     
   def save(self, **kwargs):
         # Include default for read_only `user` field
         kwargs["author"] = self.fields["author"].get_default()
         return super().save(**kwargs)
+
+  def get_username(self, obj):
+    return obj.author.username
 
 class PostSerializer(serializers.ModelSerializer):
 
