@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.forms import SlugField
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, filters
+from rest_framework import generics, filters, views
 from posts.permissions import IsAuthorOrReadOnly
 from .models import Post, Comment
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from .pagination import StandardResultsSetPagination
 
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
+
 
 class MyObtainTokenPair(TokenObtainPairView):
     permission_classes = (AllowAny,)

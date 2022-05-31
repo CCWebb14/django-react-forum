@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
 ]
 
-REST_USE_JWT = False
+REST_USE_JWT = True
 
 JWT_AUTH_COOKIE = 'access_token'
 JWT_AUTH_REFRESH_COOKIE = 'refresh'
