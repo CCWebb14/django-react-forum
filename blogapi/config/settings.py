@@ -39,6 +39,7 @@ DEFAULT_FROM_EMAIL = 'authentication@cooptech.io'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = '/email-verified'
 
 # Application definition
 
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework',
     'rest_framework.authtoken',
-    'allauth',
+    
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'posts.apps.PostsConfig',
+    'allauth',
 ]
 
 REST_USE_JWT = True
@@ -100,7 +102,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
 
@@ -113,6 +114,13 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
 ],
 }
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
