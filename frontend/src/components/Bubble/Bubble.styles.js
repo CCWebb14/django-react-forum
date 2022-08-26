@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+	display: flex;
+	/* flex-direction:  */
+	justify-content: space-between;
 	border-radius: 25px;
 	border: 2px solid none;
 	box-shadow: 9.91px 9.91px 15px #1c2532, -9.91px -9.91px 15px #222d3c;
@@ -19,4 +22,9 @@ export const Text = styled.div`
 	p {
 		font-size: var(--fontMed);
 	}
+`;
+
+export const Image = styled.img`
+	height: 250px;
+	width: 250px;
 `;

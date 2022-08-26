@@ -2,9 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // styles
-import { Wrapper, Text } from './Bubble.styles';
+import { Wrapper, Text, Image } from './Bubble.styles';
 
-const Bubble = ({ title, body, author, postID, comment_amt, clickable }) => (
+const Bubble = ({
+	title,
+	body,
+	author,
+	postID,
+	comment_amt,
+	url,
+	clickable,
+}) => (
 	<>
 		{clickable ? (
 			<Link to={`/post/${postID}`} style={{ textDecoration: 'none' }}>
@@ -15,6 +23,7 @@ const Bubble = ({ title, body, author, postID, comment_amt, clickable }) => (
 						<p>{body}</p>
 						<p>{comment_amt} comments</p>
 					</Text>
+					<Image src={url} />
 				</Wrapper>
 			</Link>
 		) : (
@@ -25,6 +34,8 @@ const Bubble = ({ title, body, author, postID, comment_amt, clickable }) => (
 					<p>{body}</p>
 					<p>{comment_amt} comments</p>
 				</Text>
+				{/* <Image>{url}</Image> */}
+				<Image src={url} />
 			</Wrapper>
 		)}
 	</>

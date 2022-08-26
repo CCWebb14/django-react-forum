@@ -1,9 +1,12 @@
 
 from email.policy import default
+from urllib import request
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Post, Comment
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+import requests
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
@@ -56,7 +59,7 @@ class PostSerializer(serializers.ModelSerializer):
   comment_amt = serializers.SerializerMethodField()
 
   class Meta:
-    fields = ('id', 'author', 'username', 'title', 'body', 'created_at', 'comment_amt', 'comments')
+    fields = ('id', 'author', 'username', 'title', 'body', 'url', 'created_at', 'comment_amt', 'comments')
     model = Post
 
   def save(self, **kwargs):
@@ -77,8 +80,8 @@ class PostListSerializer(serializers.ModelSerializer):
   comment_amt = serializers.SerializerMethodField()
 
   class Meta:
-    fields = ('id', 'author', 'username', 'title', 'body', 'created_at', 'comment_amt')
-    model = Post
+    fields = ('id', 'author', 'username', 'title', 'body', 'url', 'created_at', 'comment_amt')
+    model = Post  
 
   def save(self, **kwargs):
         # Include default for read_only `user` field

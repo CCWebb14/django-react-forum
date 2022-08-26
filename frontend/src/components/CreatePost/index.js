@@ -24,8 +24,9 @@ const CreatePost = () => {
 
 	// const { setAuth } = useAuth();
 
-	const [user, setUser] = useState('');
-	const [pwd, setPwd] = useState('');
+	const [title, setTitle] = useState('');
+	const [body, setBody] = useState('');
+	const [url, setUrl] = useState('');
 	const [errMsg, setErrMsg] = useState('');
 
 	const userRef = useRef();
@@ -37,7 +38,7 @@ const CreatePost = () => {
 
 	useEffect(() => {
 		setErrMsg('');
-	}, [user, pwd]);
+	}, [title, body, url]);
 
 	const handleSubmit = async (e) => {
 		//Prevent page reload
@@ -45,13 +46,15 @@ const CreatePost = () => {
 
 		try {
 			const resp = await axiosPrivate.post(LOGIN_URL, {
-				title: user,
-				body: pwd,
+				title: title,
+				body: body,
+				url: url,
 			});
 			console.log(JSON.stringify(resp?.data));
 			setIsSubmitted(true);
-			setUser('');
-			setPwd('');
+			setTitle('');
+			setBody('');
+			setUrl('');
 		} catch (err) {
 			console.log(err);
 		}
@@ -67,8 +70,8 @@ const CreatePost = () => {
 						type='text'
 						id='title'
 						ref={userRef}
-						onChange={(e) => setUser(e.target.value)}
-						value={user}
+						onChange={(e) => setTitle(e.target.value)}
+						value={title}
 						required
 					/>
 				</InputContainer>
@@ -77,9 +80,18 @@ const CreatePost = () => {
 					<TextInput
 						type='text'
 						id='body'
-						onChange={(e) => setPwd(e.target.value)}
-						value={pwd}
+						onChange={(e) => setBody(e.target.value)}
+						value={body}
 						required
+					/>
+				</InputContainer>
+				<InputContainer>
+					<label>Url </label>
+					<TextInput
+						type='text'
+						id='Url'
+						onChange={(e) => setUrl(e.target.value)}
+						value={url}
 					/>
 				</InputContainer>
 				<ButtonContainer>
