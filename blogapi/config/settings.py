@@ -31,15 +31,14 @@ DEBUG = True
 ALLOWED_HOSTS = ['cooptech.io']
 
 # email verification for final version
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_HOST_USER = 'apikey' 
-# EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = 'authentication@cooptech.io'
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
-# LOGIN_REDIRECT_URL = '/email-verified'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' 
+EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'authentication@cooptech.io'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+LOGIN_REDIRECT_URL = '/email-verified'
 
 # Application definition
 
@@ -118,9 +117,10 @@ REST_FRAMEWORK = {
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
