@@ -119,6 +119,11 @@ const Post = () => {
 					body={state.body}
 					postID={state.id}
 					comment_amt={state.comment_amt}
+					callback={() => {
+						// setIsCommenting(true);
+						setParentID(null);
+						setDrawerState({ bottom: true });
+					}}
 				/>
 				{state.comments?.length ? (
 					renderComments(state.comments, 0)

@@ -26,13 +26,10 @@ const Home = () => {
 				{state.results.map((post) => (
 					<Bubble
 						key={post.id}
-						clickable
 						title={post.title}
 						author={post.username}
-						body={post.body}
 						postID={post.id}
 						comment_amt={post.comment_amt}
-						url={post.url}
 					/>
 				))}
 			</ChatTab>

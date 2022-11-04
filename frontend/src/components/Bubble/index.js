@@ -10,34 +10,19 @@ const Bubble = ({
 	author,
 	postID,
 	comment_amt,
-	url,
-	clickable,
+	callback
 }) => (
 	<>
-		{clickable ? (
-			<Link to={`/post/${postID}`} style={{ textDecoration: 'none' }}>
-				<Wrapper>
-					<Text>
-						<h1>{title}</h1>
-						<h2>{author}</h2>
-						<p>{body}</p>
-						<p>{comment_amt} comments</p>
-					</Text>
-					<Image src={url} />
-				</Wrapper>
-			</Link>
-		) : (
-			<Wrapper>
+		<Link to={`/post/${postID}`} style={{ textDecoration: 'none' }}>
+			<Wrapper onClick={callback}>
 				<Text>
 					<h1>{title}</h1>
 					<h2>{author}</h2>
 					<p>{body}</p>
 					<p>{comment_amt} comments</p>
 				</Text>
-				{/* <Image>{url}</Image> */}
-				<Image src={url} />
 			</Wrapper>
-		)}
+		</Link>
 	</>
 );
 

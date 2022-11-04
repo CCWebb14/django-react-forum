@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { axiosPrivate } from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-
 import { Wrapper, Content } from './Header.styles';
 
 const Header = () => {
@@ -29,9 +28,6 @@ const Header = () => {
 			<Content>
 				<Link to='/'>
 					<p>Home</p>
-				</Link>
-				<Link to='/admin'>
-					<p>Admin</p>
 				</Link>
 				<Link to='/create-post'>
 					<p>Create Post</p>
