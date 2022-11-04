@@ -59,7 +59,7 @@ class PostSerializer(serializers.ModelSerializer):
   comment_amt = serializers.SerializerMethodField()
 
   class Meta:
-    fields = ('id', 'author', 'username', 'title', 'body', 'url', 'created_at', 'comment_amt', 'comments')
+    fields = ('id', 'author', 'username', 'title', 'body', 'created_at', 'comment_amt', 'comments')
     model = Post
 
   def save(self, **kwargs):
@@ -80,7 +80,7 @@ class PostListSerializer(serializers.ModelSerializer):
   comment_amt = serializers.SerializerMethodField()
 
   class Meta:
-    fields = ('id', 'author', 'username', 'title', 'body', 'url', 'created_at', 'comment_amt')
+    fields = ('id', 'author', 'username', 'title', 'body', 'created_at', 'comment_amt')
     model = Post  
 
   def save(self, **kwargs):
