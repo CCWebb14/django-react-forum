@@ -8,6 +8,7 @@ import CreatePost from './components/CreatePost';
 import Post from './components/Post';
 
 import { GlobalStyle } from './GlobalStyle';
+import Registration from './components/Registration';
 
 const App = () => (
 	<Router>
@@ -17,6 +18,7 @@ const App = () => (
 			<Route path='/create-post' element={<CreatePost />} />
 			<Route path='/post/:postId' element={<Post />} />
 			<Route path='/login' element={<Login />} />
+			<Route path='/registration' element={<Registration />} />
 		</Routes>
 		<GlobalStyle />
 	</Router>

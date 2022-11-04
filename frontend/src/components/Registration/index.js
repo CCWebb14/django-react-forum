@@ -1,70 +1,62 @@
 import React from 'react';
-import { axiosPrivate } from '../api/axios.js';
+import { axiosPrivate } from '../../api/axios.js';
 import { useRef, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import useAuth from '../hooks/useAuth.js';
 
 import {
 	App,
 	TextInput,
 	SubmitInput,
-	LoginForm,
+	RegistrationForm,
 	InputContainer,
 	ButtonContainer,
 	Title,
 	Error,
-	SignUp,
-} from './Login.styles.js';
+} from './Registration.styles.js';
 
-const LOGIN_URL = 'token/';
+const Registration_URL = 'dj-rest-auth/registration/';
 
-const Login = () => {
-	const { setAuth } = useAuth();
+const Registration = () => {
 	// React States
-	const [isIncorrect, setIsIncorrect] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [isIncorrect, setIsIncorrect] = useState(false);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	const from = location.state?.from?.pathname || '/';
 
 	const [user, setUser] = useState('');
-	const [pwd, setPwd] = useState('');
-
-	const [errMsg, setErrMsg] = useState('');
+	const [email, setEmail] = useState('');
+	const [pwd1, setPwd1] = useState('');
+	const [pwd2, setPwd2] = useState('');
 
 	const userRef = useRef();
-	const errRef = useRef();
 
 	useEffect(() => {
 		userRef.current.focus();
 	}, []);
-
-	useEffect(() => {
-		setErrMsg('');
-	}, [user, pwd]);
 
 	const handleSubmit = async (e) => {
 		//Prevent page reload
 		e.preventDefault();
 
 		try {
-			const resp = await axiosPrivate.post(LOGIN_URL, {
+			const resp = await axiosPrivate.post(Registration_URL, {
 				username: user,
-				password: pwd,
+				email: email,
+				password1: pwd1,
+				password2: pwd2,
 			});
-			console.log(JSON.stringify(resp?.data));
-			const access_token = resp?.data?.access_token;
-			console.log(access_token);
 
 			setIsSubmitted(true);
-			setAuth({ user, pwd, access_token });
 			setUser('');
-			setPwd('');
+			setEmail('');
+			setPwd1('');
+			setPwd2('');
 			navigate(from, { replace: true });
 		} catch (err) {
-			console.log(err);
+			setIsIncorrect(true);
 		}
 	};
 
@@ -84,12 +76,32 @@ const Login = () => {
 					/>
 				</InputContainer>
 				<InputContainer>
+					<label>Email</label>
+					<TextInput
+						type='text'
+						id='email'
+						onChange={(e) => setEmail(e.target.value)}
+						value={email}
+						required
+					/>
+				</InputContainer>
+				<InputContainer>
 					<label>Password </label>
 					<TextInput
 						type='password'
 						id='password'
-						onChange={(e) => setPwd(e.target.value)}
-						value={pwd}
+						onChange={(e) => setPwd1(e.target.value)}
+						value={pwd1}
+						required
+					/>
+				</InputContainer>
+				<InputContainer>
+					<label>Repeat Password </label>
+					<TextInput
+						type='password'
+						id='password2'
+						onChange={(e) => setPwd2(e.target.value)}
+						value={pwd2}
 						required
 					/>
 				</InputContainer>
@@ -97,28 +109,22 @@ const Login = () => {
 					<SubmitInput type='submit' />
 				</ButtonContainer>
 			</form>
-			<br />
-			<div>Need an Account?</div>
-
-			<Link to='/registration'>
-				<SignUp>Sign Up</SignUp>
-			</Link>
 		</>
 	);
 
 	return (
 		<App>
-			<LoginForm>
-				<Title>Sign In</Title>
-				{isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+			<RegistrationForm>
+				<Title>Register</Title>
+				{isSubmitted ? <div>User successfully registered</div> : renderForm}
 				{isIncorrect ? (
-					<Error>Username or password is incorrect. Please try again.</Error>
+					<Error>Something went wrong. Please try again.</Error>
 				) : (
 					<div></div>
 				)}
-			</LoginForm>
+			</RegistrationForm>
 		</App>
 	);
 };
 
-export default Login;
+export default Registration;
