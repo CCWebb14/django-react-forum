@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['forum.cooptech.io']
 
 # email verification for final version
 # EMAIL_HOST = 'smtp.sendgrid.net'
