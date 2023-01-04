@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cooptech.io']
+ALLOWED_HOSTS = ['cooperwebb.xyz']
 
 # email verification for final version
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -36,7 +36,7 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'authentication@cooptech.io'
+DEFAULT_FROM_EMAIL = 'authentication@cooperwebb.xyz'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
 LOGIN_REDIRECT_URL = '/email-verified'
 
@@ -136,8 +136,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://cooptech.io:8000',
-    'http://forum.cooptech.io',
+    'http://cooperwebb.xyz:8000',
+    'http://forum.cooperwebb.xyz',
 )
 
 CORS_ALLOW_CREDENTIALS = True
