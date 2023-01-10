@@ -83,7 +83,7 @@ const CreatePost = () => {
 					/>
 				</InputContainer>
 				<ButtonContainer>
-					<SubmitInput type='submit' />
+					<SubmitInput type='submit' value={'Submit'}/>
 				</ButtonContainer>
 			</form>
 		</>
