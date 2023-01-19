@@ -1,7 +1,6 @@
 import React from 'react';
 import { axiosPrivate } from '../../api/axios.js';
 import { useRef, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 
 import {
@@ -22,15 +21,10 @@ const Registration = () => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);
 
-	const navigate = useNavigate();
-	const location = useLocation();
-	const from = location.state?.from?.pathname || '/';
-
 	const [user, setUser] = useState('');
 	const [email, setEmail] = useState('');
 	const [pwd, setPwd] = useState('');
 	const [repeatPwd, setRepeatPwd] = useState('');
-	const [errorMsg, setErrorMsg] = useState('');
 	const [usernameErrorMsg, setUsernameErrorMsg] = useState('');
 	const [emailErrorMsg, setEmailErrorMsg] = useState('');
 	const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
@@ -67,15 +61,6 @@ const Registration = () => {
 			setIsSubmitted(true);
 			// navigate(from, { replace: true });
 		} catch (err) {
-			console.log(err);
-			console.log(err.response.data.email)
-			// setErrorMsg(err.response.data.email);
-			for(let i = 0; i < err.response.data.length; i++) {
-				setErrorMsg(err.response.data[i]);
-			}
-			for(let i = 0; i < err.response.data.username; i++) {
-				setUsernameErrorMsg(err.response.data.username[i]);
-			}
 
 			// TODO: 
 			// Support for multiple error messages for one error type
@@ -151,12 +136,6 @@ const Registration = () => {
 			<RegistrationForm>
 				<Title>Register</Title>
 				{isSubmitted ? <div>User successfully registered</div> : renderForm}
-				{isIncorrect ? (
-					// <Error>Something went wrong. Please try again.</Error>
-					<Error>{errorMsg}</Error>
-				) : (
-					<div></div>
-				)}
 			</RegistrationForm>
 		</App>
 	);
