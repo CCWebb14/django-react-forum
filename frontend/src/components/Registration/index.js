@@ -28,8 +28,13 @@ const Registration = () => {
 
 	const [user, setUser] = useState('');
 	const [email, setEmail] = useState('');
-	const [pwd1, setPwd1] = useState('');
-	const [pwd2, setPwd2] = useState('');
+	const [pwd, setPwd] = useState('');
+	const [repeatPwd, setRepeatPwd] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
+	const [usernameErrorMsg, setUsernameErrorMsg] = useState('');
+	const [emailErrorMsg, setEmailErrorMsg] = useState('');
+	const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
+	const [nonFieldErrorMsg, setNonFieldErrorMsg] = useState('');
 
 	const userRef = useRef();
 
@@ -41,21 +46,46 @@ const Registration = () => {
 		//Prevent page reload
 		e.preventDefault();
 
+		setUsernameErrorMsg('');
+		setEmailErrorMsg('');
+		setPasswordErrorMsg('');
+		setNonFieldErrorMsg('');
+
 		try {
 			const resp = await axiosPrivate.post(Registration_URL, {
 				username: user,
 				email: email,
-				password1: pwd1,
-				password2: pwd2,
+				password1: pwd,
+				password2: repeatPwd,
 			});
 
-			setIsSubmitted(true);
+			
 			setUser('');
 			setEmail('');
-			setPwd1('');
-			setPwd2('');
-			navigate(from, { replace: true });
+			setPwd('');
+			setRepeatPwd('');
+			setIsSubmitted(true);
+			// navigate(from, { replace: true });
 		} catch (err) {
+			console.log(err);
+			console.log(err.response.data.email)
+			// setErrorMsg(err.response.data.email);
+			for(let i = 0; i < err.response.data.length; i++) {
+				setErrorMsg(err.response.data[i]);
+			}
+			for(let i = 0; i < err.response.data.username; i++) {
+				setUsernameErrorMsg(err.response.data.username[i]);
+			}
+
+			// TODO: 
+			// Support for multiple error messages for one error type
+			// Ex: Usernames can have multiple errors...
+			// Username is taken, username is too short...
+
+			setUsernameErrorMsg(err.response.data.username)
+			setEmailErrorMsg(err.response.data.email)
+			setPasswordErrorMsg(err.response.data.password1)
+			setNonFieldErrorMsg(err.response.data.non_field_errors)
 			setIsIncorrect(true);
 		}
 	};
@@ -75,6 +105,7 @@ const Registration = () => {
 						required
 					/>
 				</InputContainer>
+				<>{usernameErrorMsg}</>
 				<InputContainer>
 					<label>Email</label>
 					<TextInput
@@ -85,13 +116,14 @@ const Registration = () => {
 						required
 					/>
 				</InputContainer>
+				<>{emailErrorMsg}</>
 				<InputContainer>
 					<label>Password </label>
 					<TextInput
 						type='password'
 						id='password'
-						onChange={(e) => setPwd1(e.target.value)}
-						value={pwd1}
+						onChange={(e) => setPwd(e.target.value)}
+						value={pwd}
 						required
 					/>
 				</InputContainer>
@@ -100,11 +132,13 @@ const Registration = () => {
 					<TextInput
 						type='password'
 						id='password2'
-						onChange={(e) => setPwd2(e.target.value)}
-						value={pwd2}
+						onChange={(e) => setRepeatPwd(e.target.value)}
+						value={repeatPwd}
 						required
 					/>
 				</InputContainer>
+				<>{passwordErrorMsg}</>
+				<>{nonFieldErrorMsg}</>
 				<ButtonContainer>
 					<SubmitInput type='submit' />
 				</ButtonContainer>
@@ -118,7 +152,8 @@ const Registration = () => {
 				<Title>Register</Title>
 				{isSubmitted ? <div>User successfully registered</div> : renderForm}
 				{isIncorrect ? (
-					<Error>Something went wrong. Please try again.</Error>
+					// <Error>Something went wrong. Please try again.</Error>
+					<Error>{errorMsg}</Error>
 				) : (
 					<div></div>
 				)}
