@@ -6,14 +6,14 @@ import { AuthProvider } from './context/AuthProvider';
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 root.render(
-	// <React.StrictMode>
-	// 	<AuthProvider>
-	// 		<App />
-	// 	</AuthProvider>
-	// </React.StrictMode>
-	<AuthProvider>
-		<App />
-	</AuthProvider>
+  // <React.StrictMode>
+  // 	<AuthProvider>
+  // 		<App />
+  // 	</AuthProvider>
+  // </React.StrictMode>
+  <AuthProvider>
+    <App />
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

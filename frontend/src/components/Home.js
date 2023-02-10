@@ -10,38 +10,38 @@ import Button from './Button';
 import Spinner from './Spinner';
 
 const Home = () => {
-	const { state, loading, error, setIsLoadingMore } = useHomeFetch();
+  const { state, loading, error, setIsLoadingMore } = useHomeFetch();
 
-	console.log(state);
+  console.log(state);
 
-	console.log(loading);
-	console.log(state.page);
-	console.log(state.next);
+  console.log(loading);
+  console.log(state.page);
+  console.log(state.next);
 
-	if (error) return <div>Failed to retrieve posts...</div>;
+  if (error) return <div>Failed to retrieve posts...</div>;
 
-	return (
-		<>
-			<ChatTab header={'Posts'}>
-				{state.results.map((post) => (
-					<Bubble
-						key={post.id}
-						title={post.title}
-						author={post.username}
-						postID={post.id}
-						comment_amt={post.comment_amt}
-					/>
-				))}
-			</ChatTab>
-			{/* shows spinner if loading */}
-			{loading && <Spinner />}
-			{/* Checking that there is no more pages and that it is 
+  return (
+    <>
+      <ChatTab header={'Posts'}>
+        {state.results.map((post) => (
+          <Bubble
+            key={post.id}
+            title={post.title}
+            author={post.username}
+            postID={post.id}
+            comment_amt={post.comment_amt}
+          />
+        ))}
+      </ChatTab>
+      {/* shows spinner if loading */}
+      {loading && <Spinner />}
+      {/* Checking that there is no more pages and that it is 
       not loading then displaying button */}
-			{state.next !== null && !loading && (
-				<Button text='Load More' callback={() => setIsLoadingMore(true)} />
-			)}
-		</>
-	);
+      {state.next !== null && !loading && (
+        <Button text="Load More" callback={() => setIsLoadingMore(true)} />
+      )}
+    </>
+  );
 };
 
 export default Home;
