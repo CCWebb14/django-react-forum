@@ -1,9 +1,7 @@
-import React from 'react';
-import { axiosPrivate } from '../api/axios.js';
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
-import useAuth from '../hooks/useAuth.js';
+import { axiosPrivate } from '../api/axios';
+import useAuth from '../hooks/useAuth';
 
 import {
   App,
@@ -13,16 +11,15 @@ import {
   InputContainer,
   ButtonContainer,
   Title,
-  Error,
-  SignUp,
-} from './Login.styles.js';
+  SignUp
+} from './Login.styles';
 
 const LOGIN_URL = 'token/';
 
-const Login = () => {
+function Login() {
   const { setAuth } = useAuth();
   // React States
-  const [isIncorrect, setIsIncorrect] = useState(false);
+  // const [isIncorrect, setIsIncorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const navigate = useNavigate();
@@ -32,34 +29,27 @@ const Login = () => {
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
 
-  const [errMsg, setErrMsg] = useState('');
-
   const userRef = useRef();
-  const errRef = useRef();
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  useEffect(() => {
-    setErrMsg('');
-  }, [user, pwd]);
-
   const handleSubmit = async (e) => {
-    //Prevent page reload
+    // Prevent page reload
     e.preventDefault();
 
     try {
       const resp = await axiosPrivate.post(LOGIN_URL, {
         username: user,
-        password: pwd,
+        password: pwd
       });
       console.log(JSON.stringify(resp?.data));
-      const access_token = resp?.data?.access_token;
-      console.log(access_token);
+      const accessToken = resp?.data?.access_token;
+      console.log(accessToken);
 
       setIsSubmitted(true);
-      setAuth({ user, pwd, access_token });
+      setAuth({ user, pwd, accessToken });
       setUser('');
       setPwd('');
       navigate(from, { replace: true });
@@ -73,10 +63,10 @@ const Login = () => {
     <>
       <form onSubmit={handleSubmit}>
         <InputContainer>
-          <label>Username</label>
+          <label htmlFor="username">Username</label>
           <TextInput
-            type="text"
             id="username"
+            type="text"
             ref={userRef}
             onChange={(e) => setUser(e.target.value)}
             value={user}
@@ -84,17 +74,17 @@ const Login = () => {
           />
         </InputContainer>
         <InputContainer>
-          <label>Password </label>
+          <label htmlFor="password">Password</label>
           <TextInput
-            type="password"
             id="password"
+            type="password"
             onChange={(e) => setPwd(e.target.value)}
             value={pwd}
             required
           />
         </InputContainer>
         <ButtonContainer>
-          <SubmitInput type="submit" value={'Submit'} />
+          <SubmitInput type="submit" value="Submit" />
         </ButtonContainer>
       </form>
       <br />
@@ -111,14 +101,14 @@ const Login = () => {
       <LoginForm>
         <Title>Sign In</Title>
         {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-        {isIncorrect ? (
+        {/* {isIncorrect ? (
           <Error>Username or password is incorrect. Please try again.</Error>
         ) : (
-          <div></div>
-        )}
+          <div />
+        )} */}
       </LoginForm>
     </App>
   );
-};
+}
 
 export default Login;

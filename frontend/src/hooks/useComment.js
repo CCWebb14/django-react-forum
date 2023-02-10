@@ -1,7 +1,7 @@
-import useAxiosPrivate from './useAxiosPrivate';
 import { useEffect, useState } from 'react';
+import useAxiosPrivate from './useAxiosPrivate';
 
-export const useComment = (post) => {
+const useComment = (post) => {
   // Initial state as passed post ID
   const [postID] = useState(post);
 
@@ -31,10 +31,10 @@ export const useComment = (post) => {
     const postComment = async () => {
       setLoading(true);
       await axiosPrivate
-        .post(`comments/`, {
+        .post('comments/', {
           parent: parentID,
           post: postID,
-          body: body,
+          body
         })
         .then((res) => {
           setError(false);
@@ -61,6 +61,8 @@ export const useComment = (post) => {
     isCommenting,
     setIsCommenting,
     setBody,
-    setParentID,
+    setParentID
   };
 };
+
+export default useComment;

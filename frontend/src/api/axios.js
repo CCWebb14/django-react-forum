@@ -6,7 +6,7 @@ const BASE_URL =
     : 'http://cooperwebb.xyz:8000/api/v1/';
 
 const app = axios.create({
-  baseURL: BASE_URL,
+  baseURL: BASE_URL
   // headers: { 'Content-Type': 'application/json' },
   // withCredentials: true,
 });
@@ -14,7 +14,7 @@ const app = axios.create({
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
+  withCredentials: true
 });
 
 export default app;

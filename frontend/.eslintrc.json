@@ -5,8 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "plugin:prettier/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -16,8 +16,25 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
-    "rules": {"react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}
-]}
+    "rules": {"react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+            "no-param-reassign": 0,
+            "comma-dangle": ["error", "never"],
+            "prettier/prettier": "error",
+            "object-curly-newline": "off",
+            "operator-linebreak": "off",
+            "jsx-a11y/label-has-associated-control": [ "error", {
+                "required": {
+                  "some": [ "nesting", "id"  ]
+                }
+              }],
+              "jsx-a11y/label-has-for": [ "error", {
+                "required": {
+                  "some": [ "nesting", "id"  ]
+                }
+              }]
+    }
+    
 }

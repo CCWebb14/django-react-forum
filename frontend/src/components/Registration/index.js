@@ -1,6 +1,5 @@
-import React from 'react';
-import { axiosPrivate } from '../../api/axios.js';
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { axiosPrivate } from '../../api/axios';
 
 import {
   App,
@@ -9,16 +8,15 @@ import {
   RegistrationForm,
   InputContainer,
   ButtonContainer,
-  Title,
-  Error,
-} from './Registration.styles.js';
+  Title
+} from './Registration.styles';
 
-const Registration_URL = 'dj-rest-auth/registration/';
+const RegistrationURL = 'dj-rest-auth/registration/';
 
-const Registration = () => {
+function Registration() {
   // React States
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isIncorrect, setIsIncorrect] = useState(false);
+  // const [isIncorrect, setIsIncorrect] = useState(false);
 
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
@@ -36,7 +34,7 @@ const Registration = () => {
   }, []);
 
   const handleSubmit = async (e) => {
-    //Prevent page reload
+    // Prevent page reload
     e.preventDefault();
 
     setUsernameErrorMsg('');
@@ -45,11 +43,11 @@ const Registration = () => {
     setNonFieldErrorMsg('');
 
     try {
-      const resp = await axiosPrivate.post(Registration_URL, {
+      await axiosPrivate.post(RegistrationURL, {
         username: user,
-        email: email,
+        email,
         password1: pwd,
-        password2: repeatPwd,
+        password2: repeatPwd
       });
 
       setUser('');
@@ -68,64 +66,62 @@ const Registration = () => {
       setEmailErrorMsg(err.response.data.email);
       setPasswordErrorMsg(err.response.data.password1);
       setNonFieldErrorMsg(err.response.data.non_field_errors);
-      setIsIncorrect(true);
+      // setIsIncorrect(true);
     }
   };
 
   // JSX code for login form
   const renderForm = (
-    <>
-      <form onSubmit={handleSubmit}>
-        <InputContainer>
-          <label>Username</label>
-          <TextInput
-            type="text"
-            id="username"
-            ref={userRef}
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
-            required
-          />
-        </InputContainer>
-        <>{usernameErrorMsg}</>
-        <InputContainer>
-          <label>Email</label>
-          <TextInput
-            type="text"
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            required
-          />
-        </InputContainer>
-        <>{emailErrorMsg}</>
-        <InputContainer>
-          <label>Password </label>
-          <TextInput
-            type="password"
-            id="password"
-            onChange={(e) => setPwd(e.target.value)}
-            value={pwd}
-            required
-          />
-        </InputContainer>
-        <InputContainer>
-          <label>Repeat Password </label>
-          <TextInput
-            type="password"
-            id="password2"
-            onChange={(e) => setRepeatPwd(e.target.value)}
-            value={repeatPwd}
-            required
-          />
-        </InputContainer>
-        <>{passwordErrorMsg}</>
-        <>{nonFieldErrorMsg}</>
-        <ButtonContainer>
-          <SubmitInput type="submit" value={'Submit'} />
-        </ButtonContainer>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <InputContainer>
+        <label htmlFor="username">Username</label>
+        <TextInput
+          id="username"
+          type="text"
+          ref={userRef}
+          onChange={(e) => setUser(e.target.value)}
+          value={user}
+          required
+        />
+      </InputContainer>
+      {usernameErrorMsg}
+      <InputContainer>
+        <label htmlFor="email">Email</label>
+        <TextInput
+          id="email"
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
+      </InputContainer>
+      {emailErrorMsg}
+      <InputContainer>
+        <label htmlFor="password">Password</label>
+        <TextInput
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+        />
+      </InputContainer>
+      <InputContainer>
+        <label htmlFor="password2">Repeat password</label>
+        <TextInput
+          type="password"
+          id="password2"
+          onChange={(e) => setRepeatPwd(e.target.value)}
+          value={repeatPwd}
+          required
+        />
+      </InputContainer>
+      {passwordErrorMsg}
+      {nonFieldErrorMsg}
+      <ButtonContainer>
+        <SubmitInput type="submit" value="Submit" />
+      </ButtonContainer>
+    </form>
   );
 
   return (
@@ -136,6 +132,6 @@ const Registration = () => {
       </RegistrationForm>
     </App>
   );
-};
+}
 
 export default Registration;

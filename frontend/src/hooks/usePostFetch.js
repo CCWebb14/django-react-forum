@@ -1,11 +1,11 @@
-import axios from '../api/axios';
 import { useEffect, useState } from 'react';
+import axios from '../api/axios';
 
 const initialState = {
-  result: [],
+  result: []
 };
 
-export const usePostFetch = (postId) => {
+const usePostFetch = (postId) => {
   // Initialize state
   const [state, setState] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -18,9 +18,7 @@ export const usePostFetch = (postId) => {
     setLoading(true);
     const post = await axios
       .get(`/${postID}`)
-      .then((res) => {
-        return res.data;
-      })
+      .then((res) => res.data)
       .catch((err) => {
         console.log(err);
         setError(true);
@@ -28,7 +26,7 @@ export const usePostFetch = (postId) => {
 
     setState(() => ({
       // spread result
-      ...post,
+      ...post
     }));
 
     setLoading(false);
@@ -43,3 +41,5 @@ export const usePostFetch = (postId) => {
 
   return { state, loading, error };
 };
+
+export default usePostFetch;

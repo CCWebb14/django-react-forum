@@ -1,7 +1,5 @@
-import React from 'react';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate.js';
-import { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useEffect, useState } from 'react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 import {
   App,
@@ -10,15 +8,14 @@ import {
   LoginForm,
   InputContainer,
   ButtonContainer,
-  Title,
-  Error,
-} from '../Login.styles.js';
+  Title
+} from '../Login.styles';
 
 const LOGIN_URL = '';
 
-const CreatePost = () => {
+function CreatePost() {
   // React States
-  const [isIncorrect, setIsIncorrect] = useState(false);
+  // const [isIncorrect, setIsIncorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
@@ -26,27 +23,27 @@ const CreatePost = () => {
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [errMsg, setErrMsg] = useState('');
+  // const [errMsg, setErrMsg] = useState('');
 
   const userRef = useRef();
-  const errRef = useRef();
+  // const errRef = useRef();
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
-    setErrMsg('');
+    // setErrMsg('');
   }, [title, body]);
 
   const handleSubmit = async (e) => {
-    //Prevent page reload
+    // Prevent page reload
     e.preventDefault();
 
     try {
       const resp = await axiosPrivate.post(LOGIN_URL, {
-        title: title,
-        body: body,
+        title,
+        body
       });
       console.log(JSON.stringify(resp?.data));
       setIsSubmitted(true);
@@ -59,34 +56,33 @@ const CreatePost = () => {
 
   // JSX code for login form
   const renderForm = (
-    <>
-      <form onSubmit={handleSubmit}>
-        <InputContainer>
-          <label>Title</label>
-          <TextInput
-            type="text"
-            id="title"
-            ref={userRef}
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            required
-          />
-        </InputContainer>
-        <InputContainer>
-          <label>Body </label>
-          <TextInput
-            type="text"
-            id="body"
-            onChange={(e) => setBody(e.target.value)}
-            value={body}
-            required
-          />
-        </InputContainer>
-        <ButtonContainer>
-          <SubmitInput type="submit" value={'Submit'} />
-        </ButtonContainer>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <InputContainer>
+        <label htmlFor="title">Title</label>
+        <TextInput
+          id="title"
+          type="text"
+          ref={userRef}
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+          required
+        />
+      </InputContainer>
+
+      <InputContainer>
+        <label htmlFor="body">Body</label>
+        <TextInput
+          id="body"
+          type="text"
+          onChange={(e) => setBody(e.target.value)}
+          value={body}
+          required
+        />
+      </InputContainer>
+      <ButtonContainer>
+        <SubmitInput type="submit" value="Submit" />
+      </ButtonContainer>
+    </form>
   );
 
   return (
@@ -94,10 +90,10 @@ const CreatePost = () => {
       <LoginForm>
         <Title>Create Post</Title>
         {isSubmitted ? <div>Post successfully submitted</div> : renderForm}
-        {isIncorrect ? <Error>Error</Error> : <div></div>}
+        {/* {isIncorrect ? <Error>Error</Error> : <div />} */}
       </LoginForm>
     </App>
   );
-};
+}
 
 export default CreatePost;

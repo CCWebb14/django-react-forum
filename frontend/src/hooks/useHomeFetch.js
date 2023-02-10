@@ -1,13 +1,13 @@
-import axios from '../api/axios';
 import { useEffect, useState } from 'react';
+import axios from '../api/axios';
 
 const initialState = {
   page: 0,
   next: null,
-  results: [],
+  results: []
 };
 
-export const useHomeFetch = () => {
+const useHomeFetch = () => {
   // Initial state above
   const [state, setState] = useState(initialState);
 
@@ -21,9 +21,7 @@ export const useHomeFetch = () => {
     setLoading(true);
     const posts = await axios
       .get(`?page=${page}`)
-      .then((res) => {
-        return res.data;
-      })
+      .then((res) => res.data)
       .catch((err) => {
         console.log(err);
         setError(true);
@@ -34,7 +32,7 @@ export const useHomeFetch = () => {
       ...posts,
       page: prev.page + 1,
       results:
-        page > 1 ? [...prev.results, ...posts.results] : [...posts.results],
+        page > 1 ? [...prev.results, ...posts.results] : [...posts.results]
     }));
 
     setLoading(false);
@@ -55,5 +53,12 @@ export const useHomeFetch = () => {
     setIsLoadingMore(false);
   }, [isLoadingMore, state.page]);
 
-  return { state, loading, error, setIsLoadingMore };
+  return {
+    state,
+    loading,
+    error,
+    setIsLoadingMore
+  };
 };
+
+export default useHomeFetch;

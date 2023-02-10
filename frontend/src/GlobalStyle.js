@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 // creating new css variable use <-->
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
     :root {
         --maxWidth: 1280px;
         --white: #fff;
@@ -43,3 +43,5 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 `;
+
+export default GlobalStyle;

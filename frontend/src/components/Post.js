@@ -1,37 +1,26 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import axios from '../api/axios';
-
-import ChatTab from './ChatTab';
-import Bubble from './Bubble';
-import Button from './Button';
-import CommentBubble from './CommentBubble';
-import Spinner from './Spinner';
-
-import { usePostFetch } from '../hooks/usePostFetch';
-import { useComment } from '../hooks/useComment';
-
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import MUIButton from '@mui/material/Button';
 
-const Post = () => {
+import ChatTab from './ChatTab';
+import Bubble from './Bubble';
+import CommentBubble from './CommentBubble';
+
+import usePostFetch from '../hooks/usePostFetch';
+import useComment from '../hooks/useComment';
+
+function Post() {
   const { postId } = useParams();
 
-  const { state, loading, error, setIsLoadingMore } = usePostFetch(postId);
-  const {
-    commentLoading,
-    commentError,
-    isCommenting,
-    setIsCommenting,
-    setBody,
-    setParentID,
-  } = useComment(postId);
+  const { state, error } = usePostFetch(postId);
+  const { setIsCommenting, setBody, setParentID } = useComment(postId);
 
   const [drawerState, setDrawerState] = React.useState({
-    open: false,
+    open: false
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -51,7 +40,7 @@ const Post = () => {
         width: 'auto',
         backgroundColor: '#1F2937',
         padding: '25px',
-        rowGap: '10px',
+        rowGap: '10px'
       }}
       role="presentation"
       // onClick={toggleDrawer(anchor, false)}
@@ -66,7 +55,7 @@ const Post = () => {
         multiline
         rows={4}
       />
-      <p></p>
+      <p />
       <MUIButton
         variant="contained"
         onClick={() => setIsCommenting(true)}
@@ -109,14 +98,14 @@ const Post = () => {
 
   return (
     <>
-      <ChatTab header={'Post'}>
+      <ChatTab header="Post">
         <Bubble
           key={state.id}
           title={state.title}
           author={state.username}
           body={state.body}
           postID={state.id}
-          comment_amt={state.comment_amt}
+          commentAmt={state.comment_amt}
           callback={() => {
             // setIsCommenting(true);
             setParentID(null);
@@ -130,14 +119,14 @@ const Post = () => {
         )}
       </ChatTab>
       <Drawer
-        anchor={'bottom'}
-        open={drawerState['bottom']}
+        anchor="bottom"
+        open={drawerState.bottom}
         onClose={toggleDrawer('bottom', false)}
       >
         {list('bottom')}
       </Drawer>
     </>
   );
-};
+}
 
 export default Post;
