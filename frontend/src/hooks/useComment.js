@@ -19,13 +19,9 @@ const useComment = (post) => {
   const axiosPrivate = useAxiosPrivate();
 
   // Initial Effect
-  useEffect(() => {
-    console.log('useComment mounted');
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log('hello');
-    console.log('parentId', parentID);
     if (!isCommenting) return;
 
     const postComment = async () => {
@@ -38,11 +34,11 @@ const useComment = (post) => {
         })
         .then((res) => {
           setError(false);
-          console.log(res);
           setParentID(null);
           return res.data;
         })
         .catch((err) => {
+          // TODO: Handle error
           console.log(err);
           setError(true);
         });
@@ -50,7 +46,6 @@ const useComment = (post) => {
       setLoading(false);
     };
 
-    console.log('useComment triggered');
     postComment();
     setIsCommenting(false);
   }, [setIsCommenting, axiosPrivate, body, isCommenting, parentID, postID]);
