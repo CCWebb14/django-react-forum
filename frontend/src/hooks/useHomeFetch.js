@@ -23,6 +23,7 @@ const useHomeFetch = () => {
       .get(`?page=${page}`)
       .then((res) => res.data)
       .catch((err) => {
+        // TODO: Handle error
         console.log(err);
         setError(true);
       });
@@ -40,7 +41,6 @@ const useHomeFetch = () => {
 
   // Mount effect, initial render
   useEffect(() => {
-    console.log('Grabbing from API');
     setState(initialState);
     fetchPosts(1);
   }, []);

@@ -67,8 +67,6 @@ function Post() {
     </Box>
   );
 
-  console.log(state);
-
   if (error) return <div>Failed to retrieve posts...</div>;
 
   const renderComments = (comments, depth) =>
@@ -86,7 +84,6 @@ function Post() {
             depth={depth}
             clickable
             callback={() => {
-              // setIsCommenting(true);
               setParentID(comment.id);
               setDrawerState({ bottom: true });
             }}
@@ -107,7 +104,6 @@ function Post() {
           postID={state.id}
           commentAmt={state.comment_amt}
           callback={() => {
-            // setIsCommenting(true);
             setParentID(null);
             setDrawerState({ bottom: true });
           }}

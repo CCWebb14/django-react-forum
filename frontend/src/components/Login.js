@@ -44,9 +44,7 @@ function Login() {
         username: user,
         password: pwd
       });
-      console.log(JSON.stringify(resp?.data));
       const accessToken = resp?.data?.access_token;
-      console.log(accessToken);
 
       setIsSubmitted(true);
       setAuth({ user, pwd, accessToken });
@@ -54,7 +52,7 @@ function Login() {
       setPwd('');
       navigate(from, { replace: true });
     } catch (err) {
-      console.log(err);
+      // handle error
     }
   };
 

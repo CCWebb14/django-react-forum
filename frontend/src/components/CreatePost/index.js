@@ -41,16 +41,15 @@ function CreatePost() {
     e.preventDefault();
 
     try {
-      const resp = await axiosPrivate.post(LOGIN_URL, {
+      await axiosPrivate.post(LOGIN_URL, {
         title,
         body
       });
-      console.log(JSON.stringify(resp?.data));
       setIsSubmitted(true);
       setTitle('');
       setBody('');
     } catch (err) {
-      console.log(err);
+      // Handle error
     }
   };
 

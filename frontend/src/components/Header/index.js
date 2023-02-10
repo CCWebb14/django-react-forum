@@ -11,13 +11,11 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      const resp = await axiosPrivate.post(LOGOUT_URL);
-      const accessToken = resp?.data?.access_token;
-      console.log(accessToken);
+      await axiosPrivate.post(LOGOUT_URL);
       setAuth({});
       navigate('/');
     } catch (err) {
-      console.log(err);
+      // Handle error
     }
   };
 

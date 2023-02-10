@@ -20,6 +20,7 @@ const usePostFetch = (postId) => {
       .get(`/${postID}`)
       .then((res) => res.data)
       .catch((err) => {
+        // TODO: Catch and handle error
         console.log(err);
         setError(true);
       });

@@ -10,29 +10,21 @@ import Spinner from './Spinner';
 function Home() {
   const { state, loading, error, setIsLoadingMore } = useHomeFetch();
 
-  console.log(state);
-
-  console.log(loading);
-  console.log(state.page);
-  console.log(state.next);
-
   if (error) return <div>Failed to retrieve posts...</div>;
 
   return (
     <>
-      {!loading && (
-        <ChatTab header="Posts">
-          {state.results.map((post) => (
-            <Bubble
-              key={post.id}
-              title={post.title}
-              author={post.username}
-              postID={post.id}
-              commentAmt={post.comment_amt}
-            />
-          ))}
-        </ChatTab>
-      )}
+      <ChatTab header="Posts">
+        {state.results.map((post) => (
+          <Bubble
+            key={post.id}
+            title={post.title}
+            author={post.username}
+            postID={post.id}
+            commentAmt={post.comment_amt}
+          />
+        ))}
+      </ChatTab>
       {/* shows spinner if loading */}
       {loading && <Spinner />}
       {/* Checking that there is no more pages and that it is
