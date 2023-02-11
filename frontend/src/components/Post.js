@@ -84,6 +84,7 @@ function Post() {
             depth={depth}
             clickable
             callback={() => {
+              // setIsCommenting(true);
               setParentID(comment.id);
               setDrawerState({ bottom: true });
             }}
@@ -104,6 +105,7 @@ function Post() {
           postID={state.id}
           commentAmt={state.comment_amt}
           callback={() => {
+            // setIsCommenting(true);
             setParentID(null);
             setDrawerState({ bottom: true });
           }}
